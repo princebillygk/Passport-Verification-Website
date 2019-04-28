@@ -1,0 +1,36 @@
+Remember that you can report errors and get help in https://github.com/NicoSantangelo/sublime-gulp
+
+04-23-2019 22:39:
+fs.js:136
+    throw new ERR_INVALID_CALLBACK();
+    ^
+
+TypeError [ERR_INVALID_CALLBACK]: Callback must be a function
+    at makeCallback (fs.js:136:11)
+    at Object.unlink (fs.js:938:14)
+    at requireGulp (C:\Users\shibpur\AppData\Roaming\Sublime Text 3\Packages\Gulp\write_tasks_to_cache.js:30:12)
+    at Object.<anonymous> (C:\Users\shibpur\AppData\Roaming\Sublime Text 3\Packages\Gulp\write_tasks_to_cache.js:83:12)
+    at Module._compile (internal/modules/cjs/loader.js:701:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)
+    at Module.load (internal/modules/cjs/loader.js:600:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:539:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:531:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:754:12)
+
+
+04-23-2019 22:40:
+fs.js:136
+    throw new ERR_INVALID_CALLBACK();
+    ^
+
+TypeError [ERR_INVALID_CALLBACK]: Callback must be a function
+    at makeCallback (fs.js:136:11)
+    at Object.unlink (fs.js:938:14)
+    at requireGulp (C:\Users\shibpur\AppData\Roaming\Sublime Text 3\Packages\Gulp\write_tasks_to_cache.js:30:12)
+    at Object.<anonymous> (C:\Users\shibpur\AppData\Roaming\Sublime Text 3\Packages\Gulp\write_tasks_to_cache.js:83:12)
+    at Module._compile (internal/modules/cjs/loader.js:701:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)
+    at Module.load (internal/modules/cjs/loader.js:600:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:539:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:531:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:754:12)

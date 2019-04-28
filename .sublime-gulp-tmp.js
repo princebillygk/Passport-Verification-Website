@@ -67,3 +67,5 @@ exports.css= compilecss;
 exports.img= imgmin;
 exports.html= copyhtml;
 exports.font= copyFont;
+
+/**/;module.exports = gulp;
