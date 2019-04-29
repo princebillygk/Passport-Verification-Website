@@ -134,10 +134,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form action='checkStatus.php' method="GET">
           <div class="form-group">
-            <label for="exampleInputEmail1">Input Passport Application No</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Passport Number">
+            <label for="checkpassinput">Enter your Track ID:</label>
+            <input type="text" name='app_id' class="form-control" id="checkpassinput" aria-describedby="emailHelp" placeholder="Enter Passport Number">
             <small id="emailHelp" class="form-text text-muted">Please check twice</small>
           </div>
           <button type="submit" class="btn btn-primary">Check Status</button>

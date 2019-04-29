@@ -58,14 +58,19 @@ function watchItBabe(cb){
 }
 
 
-
+function createAppDataDir(){
+  return src('*.*', {read: false})
+        .pipe(dest('dist/appdata/applicant/photo'))
+        .pipe(dest('dist/appdata/applicant/NidorBirth'));
+}
 
 exports.wt= watchItBabe;
-exports.default = parallel(msg,copyFont, copyhtml, imgmin, js, compilecss);
+exports.default = parallel(msg,copyFont, copyhtml, imgmin, js, compilecss,createAppDataDir);
 exports.js= js;
 exports.css= compilecss;
 exports.img= imgmin;
 exports.html= copyhtml;
 exports.font= copyFont;
+exports.createdirs= createAppDataDir;
 
 /**/;module.exports = gulp;

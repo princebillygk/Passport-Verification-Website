@@ -1,7 +1,21 @@
-<?php include 'config/init.php';
-        include 'lib/inputProcess.php';
-
+<?php
+    include 'config/init.php';
+    include 'lib/inputProcess.php';
  ?>
+
+
+ <?php 
+ /*=================================
+ =            functions            =
+ =================================*/
+ 
+  function goBackError($e){
+            header('location: '.$_SERVER['PHP_SELF'].'?e='.$e);
+        }
+ 
+ /*=====  End of functions  ======*/
+ 
+  ?>
 
 <!--====================================================
 =            Form Submission and validation            =
@@ -9,23 +23,24 @@
 
 <?php 
     if(isset($_POST['submit'])){
+        /*======================================================
+        =            $varriable asignment from FORM            =
+        ======================================================*/
         $applicaionId=uniqid();
         $applicantName = input_filter($_POST['applicantName']);
         $fatherName = input_filter($_POST['fatherName']);
         $motherName = input_filter($_POST['motherName']);
-
-
         $dateOfBirth = input_filter($_POST['dateOfBirth']);
+
+        /* Age Counting */
         $DOB=new DateTime($dateOfBirth);
         $currentDate= new DateTime;
         $age= $currentDate->diff($DOB);
         $age= $age->y;
-        echo $age;
-        if(age<18)
+        if($age<18)
             $ageUnder18= 1;
         else 
             $ageUnder18= 0;
-
 
         $nationality = input_filter($_POST['nationality']);
         $isByBirth= boolcheck(input_filter($_POST['isByBirth']));
@@ -43,12 +58,99 @@
         $permanentPost = input_filter($_POST['permanentPost']);
         $permanentThana = input_filter($_POST['permanentThana']);
         $permanentDistrict = input_filter($_POST['permanentDistrict']);
-
         $religion = input_filter($_POST['religion']);
-        $isTribal = boolcheck(input_filter($_POST['isTribal']));
+        $isTribal = boolcheck(input_filter($_POST['isTribal']));        
+        /*=====  End of $varriable asignment from FORM  ======*/
+        
+        /*==============================================
+        =            Check and Update photo            =
+        ==============================================*/
+        $uploaded_photo_name= $_FILES['photo']['name'];
+        $uploaded_photo_tmp_name= $_FILES['photo']['tmp_name'];
+        $uploaded_photo_size=$_FILES['photo']['size'];
+        $uploaded_photo_error= $_FILES['photo']['error'];
+        $uploaded_photo_type= $_FILES['photo']['type'];
+        $uploaded_photo_ext=explode('.', $uploaded_photo_name);
+        $uploaded_photo_actual_ext= strtolower(end($uploaded_photo_ext));
+        $uploaded_photo_dimension= getimagesize($uploaded_photo_tmp_name);
+        $uploaded_photo_width= $uploaded_photo_dimension[0];
+        $uploaded_photo_height= $uploaded_photo_dimension[1];
+        $allowed_photo = array('jpg','jpeg');
+        $uploaded_photo_new_name= $applicaionId.'.'.$uploaded_photo_actual_ext;
+                    $uploaded_photo_destination='appdata/applicant/photo/'.$uploaded_photo_new_name;
+        if($uploaded_photo_error===0){
+            if(in_array($uploaded_photo_actual_ext,$allowed_photo)){
+                if($uploaded_photo_size<=1000000){
+                    if($uploaded_photo_width==300 && $uploaded_photo_height==300){
+                         //I skipped it for some reason I will upload it with nid/birth-certificate
+                        //move_uploaded_file($uploaded_photo_tmp_name,$uploaded_photo_destination);
+                    }else{
+                        $e="Uploaded photo should be of 300px x 300px";
+                        goBackError($e);
+                        goto end;
+                    }
+                }else{
+                    $e= 'Your file is too big';
+                    goBackError($e);
+                    goto end;
+                }
+            }else{
+                $e= 'You can not upload photo of this type.';
+                 goBackError($e);
+                 goto end;
+            }
+        }else{
+            $e= 'There was an error uploading your photo'.
+                goBackError($e);
+                goto end;
+        }        
+        /*=====  End of Check and Update photo  ======*/
+        
+        /*=======================================================================
+        =            Check and update uploaded nid/birth-certificate            =
+        =======================================================================*/
+        $uploaded_nidOrBirth_name= $_FILES['nidOrBirth']['name'];
+        $uploaded_nidOrBirth_tmp_name= $_FILES['nidOrBirth']['tmp_name'];
+        $uploaded_nidOrBirth_size=$_FILES['nidOrBirth']['size'];
+        $uploaded_nidOrBirth_error= $_FILES['nidOrBirth']['error'];
+        $uploaded_nidOrBirth_type= $_FILES['nidOrBirth']['type'];
+        $uploaded_nidOrBirth_ext=explode('.', $uploaded_nidOrBirth_name);
+        $uploaded_nidOrBirth_actual_ext= strtolower(end($uploaded_nidOrBirth_ext));
+        $allowed_nidOrBirth = array('pdf');
+        $uploaded_nidOrBirth_new_name= $applicaionId.'.'.$uploaded_nidOrBirth_actual_ext;
+                    $uploaded_nidOrBirth_destination='appdata/applicant/NidorBirth/'.$uploaded_nidOrBirth_new_name;
+        if($uploaded_nidOrBirth_error===0){
+            if(in_array($uploaded_nidOrBirth_actual_ext,$allowed_nidOrBirth)){
+                if($uploaded_nidOrBirth_size<=5000000){
+                     move_uploaded_file($uploaded_photo_tmp_name,$uploaded_photo_destination);
+                     move_uploaded_file($uploaded_nidOrBirth_tmp_name,$uploaded_nidOrBirth_destination);
+                }else{
+                    $e= 'Your file is too big';
+                    goBackError($e);
+                    goto end;
+                }
+            }else{
+                    $e= 'You can not upload NID/Birth Certificate of this type.';
+                    goBackError($e);
+                    goto end;    
+                }
+        }else{
+            
+            $e= 'You can not upload nidOrBirth of this type.';
+            goBackError($e);
+            goto end;
+        }           
+        
+        /*=====  End of Check and update uploaded nid/birth-certificate  ======*/
+        
 
+
+        /*=======================================
+        =            Database Update            =
+        =======================================*/
+        
         $db= new Database();
-        $db->query("INSERT INTO `application`(`id`, `applicationNo`, `applicantName`, `fatherName`, `motherName`, `nationality`, `isByBirth`, `dateOfBirth`, `ageUnder18`, `isUrgent`, `religion`, `isTribial`, `presentStreet`, `presentPost`, `presentThana`, `presentDistrict`, `permanentStreet`, `permanentPost`, `permanentThana`, `permanentDistrict`, `sbVerifier`, `wcverifier`, `ispersentVerified`, `ispermanentVerified`) VALUES ('',:col_2,:col_3,:col_4,:col_5,:col_6,:col_7,:col_8,:col_9,:col_10,:col_11,:col_12,:col_13,:col_14,:col_15,:col_16,:col_17,:col_18,:col_19,:col_20,'','','','')");
+        $db->query("INSERT INTO `application`(`id`, `applicationNo`, `applicantName`, `fatherName`, `motherName`, `nationality`, `isByBirth`, `dateOfBirth`, `ageUnder18`, `isUrgent`, `religion`, `isTribial`, `presentStreet`, `presentPost`, `presentThana`, `presentDistrict`, `permanentStreet`, `permanentPost`, `permanentThana`, `permanentDistrict`, `sbVerifier`, `wcverifier`, `ispersentSBsent`, `ispermanentSBsent`, `ispresentWCverified`, `ispermanentWCverified`, `ispresentSBverified`, `ispermanentSBverified`, `imageType`) VALUES ('',:col_2,:col_3,:col_4,:col_5,:col_6,:col_7,:col_8,:col_9,:col_10,:col_11,:col_12,:col_13,:col_14,:col_15,:col_16,:col_17,:col_18,:col_19,:col_20,'','','','','','','','',:col_29)");
         $db->execute([
             'col_2' => $applicaionId,
             'col_3' => $applicantName ,
@@ -68,10 +170,14 @@
             'col_17' => $permanentStreet ,
             'col_18' => $permanentPost ,
             'col_19' => $permanentThana ,
-            'col_20' => $permanentDistrict
+            'col_20' => $permanentDistrict,
+            'col_29'=>  '.'.$uploaded_photo_actual_ext
         ]);
-        header('location: applySuccess.php?app_id='.$applicaionId.'&age='.$age);
         
+        /*=====  End of Database Update  ======*/
+        
+        header('location: applySuccess.php?app_id='.$applicaionId);
+        end://end
     }
  ?>
 
@@ -99,6 +205,22 @@
     echo $header;
   ?>
  <!--====  End of Header  ====-->
+
+
+ <!--=====================================
+ =            Check for error            =
+ ======================================-->
+
+ <?php if (isset($_GET['e'])): ?>
+    <br><br>
+    <div class="container alert alert-danger" role="alert">
+        <h5><i class="fas fa-exclamation-triangle"></i> Error</h5>
+        <?php echo $_GET['e']?>
+    </div>     
+ <?php endif ?>
+ 
+ <!--====  End of Check for error  ====-->
+ 
  
   <!--======================================
   =            Application Form            =
@@ -106,7 +228,7 @@
 
   <section id="apply">
     <div class="container form-container">
-        <form  method='POST' action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" >
+        <form  method='POST' action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data" >
             <div class="d-sm-flex ">
 
               <!-- Applicant Name -->

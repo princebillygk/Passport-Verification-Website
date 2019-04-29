@@ -7,28 +7,36 @@
   <?php 
     $header = new Templete('common\header');
     $footer= new Templete('common\footer'); 
-    $db=new Database();
+    $genaralInfo= new Templete('applicant\genaralInfo');
+    $nidBirth= new Templete('applicant\nidBirth');
+    $address= new Templete('applicant\address');
   ?>
 
 <!--====  End of contents intialization  ====-->
 
-
-
  <!--============================
  =            Header            =
  =============================-->
-  <?php $header->pageTitle='Congratulation';
+  <?php  
+    $header->pageTitle='Aplicant Information';
     echo $header;
   ?>
- <!--====  End of Header  ====-->
- 
- <div class="rounded m-5 jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-4"><i class="text-success fas fa-check"></i> You are done</h1>
-    <p class="lead"> You can now check your passport status at any time using this <b class="text-primary h6">track id: <?php echo htmlspecialchars($_GET['app_id']) ?></b>. Please keep it for further use.</p>
-  </div>
-</div>
   
+ <!--====  End of header  ====-->  
+  <?php  
+    $genaralInfo->appID=$_GET['app_id'];
+   echo $genaralInfo;
+  ?>
+  <br>
+  <?php  
+    $address->appID=$_GET['app_id'];
+   echo $address;
+  ?>
+
+  <?php  
+    $nidBirth->appID=$_GET['app_id'];
+   echo $nidBirth;
+  ?>
 
   <!--============================
   =            footer            =
@@ -36,3 +44,4 @@
     <?php echo $footer ?> 
   
   <!--====  End of footer  ====-->
+  
