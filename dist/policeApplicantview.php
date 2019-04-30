@@ -1,12 +1,21 @@
 <?php include 'config/init.php' ?>
-
+<?php 
+  session_start();
+  if(isset($_SESSION['policeloggedin'])){
+    extract($_SESSION['policeloggedin']);
+  }else{
+    header('location: index.php');
+  }
+ ?>
+<button type="button" id="user-logged-button" class="btn btn-primary m-2 pt-2 pb-2" data-toggle="popover" title="<?php echo 'logged in as '.$userid ?>" data-html=true data-content="Name: <?php echo $Name ?><br>Contact: <?php echo $ContactNo ?>"><i class="fas fa-user"></i></button>
+ 
 <!--============================================
 =            contents intialization            =
 =============================================-->
 
   <?php 
-    $header = new Templete('common\header');
-    $footer= new Templete('common\footer'); 
+    $header = new Templete('admin\header');
+    $footer= new Templete('admin\footer'); 
     $genaralInfo= new Templete('applicant\genaralInfo');
     $nidBirth= new Templete('applicant\nidBirth');
     $address= new Templete('applicant\address');
@@ -20,7 +29,7 @@
   //getting id
   $applicantId=$_GET['app_id'];
   $db= new Database();
-  $db->query('SELECT `isSBpermited`,`ispermanentSBsent`, `ispresentWCverified`, `ispermanentWCverified`, `isSBpermited`, `isSBverified` FROM `application` WHERE `applicationNo`=?');
+  $db->query('SELECT `isSBpermited`,`ispresentWCverified`, `ispermanentWCverified`, `isSBpermited`, `isSBverified` FROM `application` WHERE `applicationNo`=?');
   $db->execute([$applicantId]);
   $applicant=$db->fetchArray();
   extract($applicant);  

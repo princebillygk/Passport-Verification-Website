@@ -325,7 +325,7 @@
 
                 <div class="form-group required col-md-6">
                     <label for="presentPost">Post Code</label>
-                    <input name='presentPost' required="true" type="text" class="form-control" id="presentPost" aria-describedby="textHelp" placeholder="Enter Post Code">
+                    <input name='presentPost' required="true" type="number" min='1000' max='9999' class="form-control" id="presentPost" aria-describedby="textHelp" placeholder="Enter Post Code">
                 </div>
               </div>
 
@@ -370,7 +370,7 @@
 
                 <div class="form-group required col-md-6">
                     <label for="permanentPost">Post Code</label>
-                    <input name='permanentPost' required="true" type="text" class="form-control" id="permanentPost" aria-describedby="textHelp" placeholder="Enter Post Code">
+                    <input name='permanentPost' required="true" type="number" min='1000' max='9999' class="form-control" id="permanentPost" aria-describedby="textHelp" placeholder="Enter Post Code">
                 </div>
               </div>
 

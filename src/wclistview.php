@@ -1,18 +1,39 @@
 <?php include 'config/init.php' ?>
 
+<?php 
+  if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+  }
+  if(isset($_SESSION['wcloggedin'])){
+    extract($_SESSION['wcloggedin']);
+  }else{
+    header('location: index.php');
+  }
+
+ ?>
+ <button type="button" id="user-logged-button" class="btn btn-primary m-2 pt-2 pb-2" data-toggle="popover" title="<?php echo 'logged in as '.$userid ?>" data-html=true data-content="Name: <?php echo $Name ?><br>Contact: <?php echo $ContactNo ?><br>Post Code: <?php echo $postCode ?>"><i class="fas fa-user"></i></button>
+
 <!--============================================
 =            contents intialization            =
 =============================================-->
 
   <?php 
-    $header = new Templete('common\header');
-    $footer= new Templete('common\footer'); 
+    $header = new Templete('admin\header');
+    $footer= new Templete('admin\footer'); 
   ?>
 
   <?php 
-      $postcode=$_GET['postcode'];
+      $postcode=$postCode;
       $db= new Database();
-      $db->query('SELECT `id`, `applicationNo`, `applicantName` FROM `application` WHERE `isSBpermited`=1 AND (`ispresentWCverified`=0 OR `ispermanentWCverified`=0) AND (`permanentPost`=? OR `presentPost`=?)');
+      $db->query('SELECT `id`, `applicationNo`, `applicantName` FROM `application` WHERE
+       `isSBpermited`=1 
+        AND
+       (
+         (`ispresentWCverified`=0 AND `presentPost`=?)
+          OR
+         (`ispermanentWCverified`=0 AND `permanentPost`=? )
+       )'
+     );
       $wctask=$db->fetchAll([$postcode,$postcode]);
 
       $db->query('SELECT `id`, `applicationNo`, `applicantName` FROM `application`');
@@ -30,7 +51,7 @@
  <!--====  End of Header  ====-->
 
  <!--======================================
- =            Police list view            =
+ =            wc list view            =
  =======================================-->
  <br><br>
  <div class="container">
@@ -78,7 +99,7 @@
   </div>
 </div>
  </div>
- <!--====  End of Police list view  ====-->
+ <!--====  End of wc list view  ====-->
  
  
 

@@ -12022,3 +12022,13 @@ header nav button {
 #apply .form-group.required-radio .radio-title:after {
   content: '*';
   color: red; }
+
+/*===========================================
+=            admin pannel styles            =
+===========================================*/
+#user-logged-button {
+  position: fixed;
+  bottom: 30;
+  right: 10; }
+
+/*=====  End of admin pannel styles  ======*/

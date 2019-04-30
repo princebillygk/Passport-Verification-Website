@@ -1,4 +1,15 @@
 <!-- Header Element start -->
+<?php
+  session_start();
+  if(isset($_SESSION['loginerror'])){
+  if($_SESSION['loginerror']=='true'){
+    unset($_SESSION);
+    session_destroy();
+    echo "<script>alert('User ID or password is not valid');</script>";
+  }
+}
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,25 +74,22 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form action='authentication.php?user=police' method='POST'>
           <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <label for="exampleInputEmail1">User ID</label>
+            <input name='userid' type="text" class="form-control" id="exampleInputtext1" aria-describedby="textHelp" placeholder="Enter User ID" required>
+            <small id="textHelp" class="form-text text-muted">You has to be registered from Passport Office</small>
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <label for="exampleInputPassword1" >Password</label>
+            <input name='password' type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
           </div>
-          <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+  
+          <input type="submit"value="login" class="btn btn-primary">
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="button" value='submit' class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -98,21 +106,18 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form action='authentication.php?user=wc' method='POST'>
           <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <label for="exampleInputEmail1">User ID</label>
+            <input name='userid' type="userid" class="form-control" id="exampleInputuserid1" aria-describedby="useridHelp" placeholder="Enter User ID" required="true">
+            <small id="useridHelp" class="form-text text-muted">You has to be registered from Passport Office</small>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <input name='password' type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required="true">
           </div>
-          <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+  
+          <input type="submit" value="login" class="btn btn-primary">
         </form>
       </div>
       <div class="modal-footer">
@@ -137,7 +142,7 @@
         <form action='checkStatus.php' method="GET">
           <div class="form-group">
             <label for="checkpassinput">Enter your Track ID:</label>
-            <input type="text" name='app_id' class="form-control" id="checkpassinput" aria-describedby="emailHelp" placeholder="Enter Passport Number">
+            <input  type="text" name='app_id' class="form-control" id="checkpassinput" aria-describedby="emailHelp" placeholder="Enter Passport Number" required="true">
             <small id="emailHelp" class="form-text text-muted">Please check twice</small>
           </div>
           <button type="submit" class="btn btn-primary">Check Status</button>

@@ -1,12 +1,25 @@
 <?php include 'config/init.php' ?>
 
+<?php 
+  if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+  }
+  if(isset($_SESSION['policeloggedin'])){
+    extract($_SESSION['policeloggedin']);
+  }else{
+    header('location: index.php');
+  }
+
+ ?>
+ <button type="button" id="user-logged-button" class="btn btn-primary m-2 pt-2 pb-2" data-toggle="popover" title="<?php echo 'logged in as '.$userid ?>" data-html=true data-content="Name: <?php echo $Name ?><br>Contact: <?php echo $ContactNo ?>"><i class="fas fa-user"></i></button>
+
 <!--============================================
 =            contents intialization            =
 =============================================-->
 
   <?php 
-    $header = new Templete('common\header');
-    $footer= new Templete('common\footer'); 
+    $header = new Templete('admin\header');
+    $footer= new Templete('admin\footer'); 
   ?>
 
   <?php 
@@ -14,7 +27,7 @@
       $db->query('SELECT `id`, `applicationNo`, `applicantName` FROM `application` WHERE `isSBpermited`=0');
       $new=$db->fetchAll();
 
-      $db->query('SELECT `id`, `applicationNo`, `applicantName` FROM `application` WHERE `ispresentWCverified`=1 AND `ispermanentWCverified`=1');
+      $db->query('SELECT `id`, `applicationNo`, `applicantName` FROM `application` WHERE `ispresentWCverified`=1 AND `ispermanentWCverified`=1 AND `isSBverified`=0');
       $wc=$db->fetchAll();
 
       $db->query('SELECT `id`, `applicationNo`, `applicantName` FROM `application`');
