@@ -16,14 +16,14 @@
   =            Generating Status            =
   =========================================*/
   
-  if($ispersentSBsent && $ispermanentSBsent && $ispresentWCverified  && $ispermanentWCverified && $ispresentSBverified && $ispermanentSBverified){
+  if($isSBpermited==1 && $ispresentWCverified==1  && $ispermanentWCverified==1 && $isSBverified==1){
       $status= 'Your Passport is already published.';
-  }else if($ispersentSBsent && $ispermanentSBsent && $ispresentWCverified  && $ispermanentWCverified){
+  }else if($isSBpermited==1 && $ispresentWCverified==1  && $ispermanentWCverified==1){
       $status= 'Waiting for Police Verification.';
-  }else if($ispersentSBsent && $ispermanentSBsent){
+  }else if($isSBpermited==1){
       $status='Wating for Ward Commisioner Verification.';
   }else{
-    $status='Wating for Police Permit';
+    $status='Wating for Police permit';
   }
   /*=====  End of Generating Status  ======*/ 
   

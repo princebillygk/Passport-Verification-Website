@@ -150,7 +150,7 @@
         =======================================*/
         
         $db= new Database();
-        $db->query("INSERT INTO `application`(`id`, `applicationNo`, `applicantName`, `fatherName`, `motherName`, `nationality`, `isByBirth`, `dateOfBirth`, `ageUnder18`, `isUrgent`, `religion`, `isTribial`, `presentStreet`, `presentPost`, `presentThana`, `presentDistrict`, `permanentStreet`, `permanentPost`, `permanentThana`, `permanentDistrict`, `sbVerifier`, `wcverifier`, `ispersentSBsent`, `ispermanentSBsent`, `ispresentWCverified`, `ispermanentWCverified`, `ispresentSBverified`, `ispermanentSBverified`, `imageType`) VALUES ('',:col_2,:col_3,:col_4,:col_5,:col_6,:col_7,:col_8,:col_9,:col_10,:col_11,:col_12,:col_13,:col_14,:col_15,:col_16,:col_17,:col_18,:col_19,:col_20,'','','','','','','','',:col_29)");
+        $db->query("INSERT INTO `application`(`id`, `applicationNo`, `applicantName`, `fatherName`, `motherName`, `nationality`, `isByBirth`, `dateOfBirth`, `ageUnder18`, `isUrgent`, `religion`, `isTribial`, `presentStreet`, `presentPost`, `presentThana`, `presentDistrict`, `permanentStreet`, `permanentPost`, `permanentThana`, `permanentDistrict`,`ispresentWCverified`, `ispermanentWCverified`, `isSBpermited`, `isSBverified`, `imageType`, `SBpermiter`, `SBverifier`, `presentWCverifier`, `permanentWCverifier`) VALUES ('',:col_2,:col_3,:col_4,:col_5,:col_6,:col_7,:col_8,:col_9,:col_10,:col_11,:col_12,:col_13,:col_14,:col_15,:col_16,:col_17,:col_18,:col_19,:col_20,'','','','',:col_25,'','','','')");
         $db->execute([
             'col_2' => $applicaionId,
             'col_3' => $applicantName ,
@@ -171,7 +171,7 @@
             'col_18' => $permanentPost ,
             'col_19' => $permanentThana ,
             'col_20' => $permanentDistrict,
-            'col_29'=>  '.'.$uploaded_photo_actual_ext
+            'col_25'=>  '.'.$uploaded_photo_actual_ext
         ]);
         
         /*=====  End of Database Update  ======*/
