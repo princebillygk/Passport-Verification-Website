@@ -2,10 +2,10 @@
 -- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 01, 2019 at 10:39 AM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.2
+-- Host: localhost:3306
+-- Generation Time: May 05, 2019 at 12:29 PM
+-- Server version: 8.0.16
+-- PHP Version: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -403,6 +403,20 @@ INSERT INTO `district` (`Id`, `Name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `passport`
+--
+
+CREATE TABLE `passport` (
+  `applicationNo` varchar(256) NOT NULL,
+  `application_date` date DEFAULT NULL,
+  `publishdate_estimated` date NOT NULL,
+  `publishdate_actual` date DEFAULT NULL,
+  `expired_date` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `religions`
 --
 
@@ -605,6 +619,12 @@ ALTER TABLE `countries`
 --
 ALTER TABLE `district`
   ADD PRIMARY KEY (`Id`);
+
+--
+-- Indexes for table `passport`
+--
+ALTER TABLE `passport`
+  ADD PRIMARY KEY (`applicationNo`);
 
 --
 -- Indexes for table `religions`
