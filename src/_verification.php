@@ -34,7 +34,13 @@
 			'status' => 1,
 			'user' => $user,
 			'a_id' => $applicantId
+		]);
+		$db->query('UPDATE `passport` SET `publishdateActual`=:col_5,`expiredDate`=:col_6 WHERE `applicationNo`=:app_id');
 
+		$db->execute([
+			'col_5' => date('d:m:y'),
+			'col_6' => date('d:m:y',strtotime("+6 years")),
+			'app_id' => $applicantId
 		]);
 	}
 	header("Location: {$_SERVER['HTTP_REFERER']}");

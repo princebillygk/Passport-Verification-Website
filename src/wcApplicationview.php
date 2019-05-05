@@ -42,6 +42,7 @@
  =            Header            =
  =============================-->
   <?php  
+    $header->user='wc';
     $header->pageTitle='WC view/Applicant Information';
     echo $header;
   ?>

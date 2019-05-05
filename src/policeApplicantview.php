@@ -42,6 +42,7 @@
  =============================-->
   <?php  
     $header->pageTitle='Police view/Applicant Information';
+    $header->user='police';
     echo $header;
   ?>
   
