@@ -7,17 +7,16 @@
   if(isset($_POST['app_id'])){ 
     $app_id= input_filter($_POST['app_id']);
     $db= new Database;
-    $db->query('Select `applicantName` FROM `application` WHERE `applicationNo`=?');
-    $applicant=$db->fetch($app_id);
-    if(empty($applicant)){
+    $db->query("SELECT * FROM `application` WHERE `applicationNo`= ? ");
+    $ap=$db->fetchArray([$app_id]);
+    if(empty($ap)){
       session_start();
       $_SESSION['loginerror']='Incorrect Application ID';
-      header('location: index.php');
+      header('location: index.php');exit;
     }
   }else{
-    header('location: index.php');
+    header('location: index.php');exit;
   }
-
 
  ?>
 

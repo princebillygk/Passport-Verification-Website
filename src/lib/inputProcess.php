@@ -7,6 +7,6 @@
 	}
 
 	function boolcheck($string){
-		return $string=='true'?true:false;
+		return $string=='true'?1:0;
 	}
  ?>

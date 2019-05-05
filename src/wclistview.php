@@ -47,6 +47,7 @@
  =            Header            =
  =============================-->
   <?php $header->pageTitle='WC View';
+  $header->user='wc';
   echo $header;?>
  <!--====  End of Header  ====-->
 

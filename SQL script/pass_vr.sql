@@ -2,10 +2,10 @@
 -- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 01, 2019 at 10:39 AM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.2
+-- Host: localhost:3306
+-- Generation Time: May 05, 2019 at 03:33 PM
+-- Server version: 8.0.16
+-- PHP Version: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -30,34 +30,34 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `application` (
   `id` int(11) NOT NULL,
-  `applicationNo` varchar(256) NOT NULL,
-  `applicantName` varchar(256) NOT NULL,
-  `fatherName` varchar(256) NOT NULL,
-  `motherName` varchar(256) NOT NULL,
-  `nationality` varchar(256) NOT NULL,
-  `isByBirth` tinyint(1) NOT NULL,
-  `dateOfBirth` date NOT NULL,
-  `ageUnder18` tinyint(1) NOT NULL,
-  `isUrgent` tinyint(1) NOT NULL,
-  `religion` varchar(256) NOT NULL,
-  `isTribial` tinyint(1) NOT NULL,
-  `presentStreet` varchar(256) NOT NULL,
-  `presentPost` varchar(256) NOT NULL,
-  `presentThana` varchar(256) NOT NULL,
-  `presentDistrict` varchar(256) NOT NULL,
-  `permanentStreet` varchar(256) NOT NULL,
-  `permanentPost` varchar(256) NOT NULL,
-  `permanentThana` varchar(256) NOT NULL,
-  `permanentDistrict` varchar(256) NOT NULL,
-  `ispresentWCverified` tinyint(1) NOT NULL,
-  `ispermanentWCverified` tinyint(1) NOT NULL,
-  `isSBpermited` varchar(256) NOT NULL,
-  `isSBverified` tinyint(1) NOT NULL,
-  `imageType` varchar(10) NOT NULL,
-  `SBpermiter` varchar(256) NOT NULL,
-  `SBverifier` varchar(256) NOT NULL,
-  `presentWCverifier` varchar(256) NOT NULL,
-  `permanentWCverifier` varchar(256) NOT NULL
+  `applicationNo` varchar(256) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `applicantName` varchar(256) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `fatherName` varchar(256) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `motherName` varchar(256) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `nationality` varchar(256) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `isByBirth` tinyint(1) DEFAULT NULL,
+  `dateOfBirth` date DEFAULT NULL,
+  `ageUnder18` tinyint(1) DEFAULT NULL,
+  `isUrgent` tinyint(1) DEFAULT NULL,
+  `religion` varchar(256) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `isTribial` tinyint(1) DEFAULT NULL,
+  `presentStreet` varchar(256) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `presentPost` varchar(256) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `presentThana` varchar(256) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `presentDistrict` varchar(256) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `permanentStreet` varchar(256) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `permanentPost` varchar(256) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `permanentThana` varchar(256) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `permanentDistrict` varchar(256) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `ispresentWCverified` tinyint(1) DEFAULT '0',
+  `ispermanentWCverified` tinyint(1) DEFAULT '0',
+  `isSBpermited` tinyint(1) DEFAULT '0',
+  `isSBverified` tinyint(1) DEFAULT '0',
+  `imageType` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `SBpermiter` varchar(256) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `SBverifier` varchar(256) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `presentWCverifier` varchar(256) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `permanentWCverifier` varchar(256) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -403,6 +403,21 @@ INSERT INTO `district` (`Id`, `Name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `passport`
+--
+
+CREATE TABLE `passport` (
+  `passportNo` int(11) NOT NULL,
+  `applicationNo` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `applicationDate` date DEFAULT NULL,
+  `publishdateEstimated` date DEFAULT NULL,
+  `publishdateActual` date DEFAULT NULL,
+  `expiredDate` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `religions`
 --
 
@@ -576,8 +591,8 @@ CREATE TABLE `wcverifier` (
 --
 
 INSERT INTO `wcverifier` (`Id`, `userid`, `Name`, `password`, `ContactNo`, `postCode`) VALUES
-(1, 'w123', 'wc123', '123wc', '017111100000', 5000),
-(2, 'w234', 'wc234', '234wc', '017111100000', 1031),
+(1, 'w123', 'wc123', '123wc', '017111100000', 4150),
+(2, 'w234', 'wc234', '234wc', '017111100000', 8621),
 (3, 'w345', 'wc345', '345wc', '017111100000', 7248),
 (4, 'w456', 'wc456', '456wc', '017111100000', 5246),
 (5, 'w567', 'wc567', '567wc', '017111100000', 7336);
@@ -605,6 +620,12 @@ ALTER TABLE `countries`
 --
 ALTER TABLE `district`
   ADD PRIMARY KEY (`Id`);
+
+--
+-- Indexes for table `passport`
+--
+ALTER TABLE `passport`
+  ADD PRIMARY KEY (`passportNo`);
 
 --
 -- Indexes for table `religions`
@@ -646,6 +667,12 @@ ALTER TABLE `application`
 --
 ALTER TABLE `district`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+
+--
+-- AUTO_INCREMENT for table `passport`
+--
+ALTER TABLE `passport`
+  MODIFY `passportNo` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `religions`

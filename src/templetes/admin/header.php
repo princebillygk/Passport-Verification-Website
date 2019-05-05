@@ -20,7 +20,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="policelistview.php"> Show Applicant List<span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="<?php echo $user?>listview.php"> Show Applicant List<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link bg-danger btn rounded p-1" href="logout.php">logout</a>

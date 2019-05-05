@@ -59,7 +59,18 @@
         $permanentThana = input_filter($_POST['permanentThana']);
         $permanentDistrict = input_filter($_POST['permanentDistrict']);
         $religion = input_filter($_POST['religion']);
-        $isTribal = boolcheck(input_filter($_POST['isTribal']));        
+        $isTribal = boolcheck(input_filter($_POST['isTribal']));  
+
+
+        /* Passport information */
+        $applicationDate = date('d:m:y');
+        if($isUrgent){
+            $publishdateEstimated = date('d:m:y',strtotime("+6 days"));
+        }else{
+            $publishdateEstimated= date('d:m:y',strtotime("+30 days"));
+        }
+
+                    
         /*=====  End of $varriable asignment from FORM  ======*/
         
         /*==============================================
@@ -150,7 +161,7 @@
         =======================================*/
         
         $db= new Database();
-        $db->query("INSERT INTO `application`(`id`, `applicationNo`, `applicantName`, `fatherName`, `motherName`, `nationality`, `isByBirth`, `dateOfBirth`, `ageUnder18`, `isUrgent`, `religion`, `isTribial`, `presentStreet`, `presentPost`, `presentThana`, `presentDistrict`, `permanentStreet`, `permanentPost`, `permanentThana`, `permanentDistrict`,`ispresentWCverified`, `ispermanentWCverified`, `isSBpermited`, `isSBverified`, `imageType`, `SBpermiter`, `SBverifier`, `presentWCverifier`, `permanentWCverifier`) VALUES ('',:col_2,:col_3,:col_4,:col_5,:col_6,:col_7,:col_8,:col_9,:col_10,:col_11,:col_12,:col_13,:col_14,:col_15,:col_16,:col_17,:col_18,:col_19,:col_20,'','','','',:col_25,'','','','')");
+        $db->query("INSERT INTO `application`(`id`, `applicationNo`, `applicantName`, `fatherName`, `motherName`, `nationality`, `isByBirth`, `dateOfBirth`, `ageUnder18`, `isUrgent`, `religion`, `isTribial`, `presentStreet`, `presentPost`, `presentThana`, `presentDistrict`, `permanentStreet`, `permanentPost`, `permanentThana`, `permanentDistrict`,`ispresentWCverified`, `ispermanentWCverified`, `isSBpermited`, `isSBverified`, `imageType`, `SBpermiter`, `SBverifier`, `presentWCverifier`, `permanentWCverifier`) VALUES (null,:col_2,:col_3,:col_4,:col_5,:col_6,:col_7,:col_8,:col_9,:col_10,:col_11,:col_12,:col_13,:col_14,:col_15,:col_16,:col_17,:col_18,:col_19,:col_20,0,0,0,0,:col_25,null,null,null,null)");
         $db->execute([
             'col_2' => $applicaionId,
             'col_3' => $applicantName ,
@@ -173,6 +184,15 @@
             'col_20' => $permanentDistrict,
             'col_25'=>  '.'.$uploaded_photo_actual_ext
         ]);
+
+        // Passport Information 
+        $db->query("INSERT INTO `passport`(`passportNo`, `applicationNo`, `applicationDate`, `publishdateEstimated`, `publishdateActual`, `expiredDate`) VALUES (null, :col_2, :col_3, :col_4, null, null)");
+        $db->execute([
+           'col_2' => $applicaionId,
+           'col_3' => $applicationDate,
+           'col_4' => $publishdateEstimated
+        ]);
+        //*/
         
         /*=====  End of Database Update  ======*/
         
