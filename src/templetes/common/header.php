@@ -1,15 +1,4 @@
 <!-- Header Element start -->
-<?php
-  session_start();
-  if(isset($_SESSION['loginerror'])){
-  if($_SESSION['loginerror']=='true'){
-    unset($_SESSION);
-    session_destroy();
-    echo "<script>alert('User ID or password is not valid');</script>";
-  }
-}
- ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -139,7 +128,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action='checkStatus.php' method="GET">
+        <form action='checkStatus.php' method="POST">
           <div class="form-group">
             <label for="checkpassinput">Enter your Track ID:</label>
             <input  type="text" name='app_id' class="form-control" id="checkpassinput" aria-describedby="emailHelp" placeholder="Enter Passport Number" required="true">

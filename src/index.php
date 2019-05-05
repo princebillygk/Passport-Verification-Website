@@ -1,5 +1,14 @@
 <?php include 'config/init.php' ?>
 
+<?php
+  session_start();
+  if(isset($_SESSION['loginerror'])){
+    echo "<script>alert('".$_SESSION['loginerror']."');</script>";
+    unset($_SESSION);
+    session_destroy();
+}
+ ?>
+
 <!--============================================
 =            contents intialization            =
 =============================================-->

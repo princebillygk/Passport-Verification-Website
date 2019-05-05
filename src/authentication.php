@@ -12,7 +12,7 @@
 		$user=$db->fetchArray([$uid,$pwd]);
 		if(empty($user)){
 			session_start();
-			$_SESSION['loginerror']=true;
+			$_SESSION['loginerror']='SB username or password is not correct';
 			header("Location: {$_SERVER['HTTP_REFERER']}");
 		}else{
 			session_start();
@@ -26,7 +26,7 @@
 		$user=$db->fetchArray([$uid,$pwd]);
 		if(empty($user)){
 			session_start();
-			$_SESSION['loginerror']=true;
+			$_SESSION['loginerror']='WC username or password is not correct';
 			header("Location: {$_SERVER['HTTP_REFERER']}");
 		}else{
 			session_start();
