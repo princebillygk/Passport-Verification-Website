@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 05, 2019 at 12:29 PM
+-- Generation Time: May 05, 2019 at 12:47 PM
 -- Server version: 8.0.16
 -- PHP Version: 7.3.5
 
@@ -407,11 +407,12 @@ INSERT INTO `district` (`Id`, `Name`) VALUES
 --
 
 CREATE TABLE `passport` (
+  `passportNo` int(11) NOT NULL,
   `applicationNo` varchar(256) NOT NULL,
-  `application_date` date DEFAULT NULL,
-  `publishdate_estimated` date NOT NULL,
-  `publishdate_actual` date DEFAULT NULL,
-  `expired_date` date DEFAULT NULL
+  `applicationDate` date DEFAULT NULL,
+  `publishdateEstimated` date NOT NULL,
+  `publishdateActual` date DEFAULT NULL,
+  `expiredDate` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -624,7 +625,7 @@ ALTER TABLE `district`
 -- Indexes for table `passport`
 --
 ALTER TABLE `passport`
-  ADD PRIMARY KEY (`applicationNo`);
+  ADD PRIMARY KEY (`passportNo`);
 
 --
 -- Indexes for table `religions`
@@ -666,6 +667,12 @@ ALTER TABLE `application`
 --
 ALTER TABLE `district`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+
+--
+-- AUTO_INCREMENT for table `passport`
+--
+ALTER TABLE `passport`
+  MODIFY `passportNo` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `religions`
